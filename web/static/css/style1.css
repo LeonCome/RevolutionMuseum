@@ -1,0 +1,34 @@
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.panel-entry-guide .panel-body,
+.panel-entry-guide .panel-body a {
+    color: white;
+}
+
+.panel-entry-guide .panel-body a:hover {
+    color: yellow;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: -6px;
+    margin-bottom: -6px;
+}
+
+.custom-hr {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(to right, #007bff, #00d4ff);
+    margin: 40px 0;
+}
+ul li {
+    list-style: none;
+}
