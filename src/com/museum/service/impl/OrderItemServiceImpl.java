@@ -18,7 +18,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 	}
 
 	@Override
-	public boolean updateOrderItem(int id, int count, int totalPrice, int order_status) {
+	public boolean updateOrderItem(int id, int count, Double totalPrice, int order_status) {
 		return new OrderItemDaoImpl().updateOrderItem(id,count,totalPrice,order_status)>0;
 	}
 

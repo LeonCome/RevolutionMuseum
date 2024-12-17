@@ -36,8 +36,8 @@ public class OrderItemDaoImpl extends BaseDao implements OrderItemDao {
 	}
 
 	@Override
-	public int updateOrderItem(int id,int count,int totalPrice,int order_status) {
-		String sql = "UPDATE order_item SET count=?,totalPrice=?, order_status=? WHERE id=?";
+	public int updateOrderItem(int id,int count,Double totalPrice,int order_status) {
+		String sql = "UPDATE order_item SET count=?,total_price=?, order_status_id=? WHERE id=?";
 		return update(sql,count,totalPrice,order_status,id);
 	}
 

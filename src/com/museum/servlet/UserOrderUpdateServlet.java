@@ -11,28 +11,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "AdminControlGoodsServlet",urlPatterns = "/admin/goods_control")
-public class AdminControlGoodsServlet extends HttpServlet {
+@WebServlet(name = "UserOrderUpdateServlet",urlPatterns = "/order/update")
+public class UserOrderUpdateServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("===================AdminControlGoodsServlet====================");
+		System.out.println("===================UserOrderUpdateServlet====================");
+		//获取参数
+		int orderId = Integer.parseInt(req.getParameter("orderId"));
 
-		//确认登录
-		if (req.getSession().getAttribute("adminId")!=null){
-			int userId= (int) req.getSession().getAttribute("adminId");
-
-			OrderItemService orderService = new OrderItemServiceImpl();
-			List<OrderItem> orderItems = orderService.findByUserId(userId);
-			req.setAttribute("orderItems",orderItems);
-			System.out.println("orderItems:"+orderItems);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/web/admin/goods.jsp");
+		//创建服务类
+		OrderItemService orderItemService = new OrderItemServiceImpl();
+		OrderItem orderItem= orderItemService.findById(orderId);
+		boolean result = orderItemService.updateOrderItem(orderId,orderItem.getCount(),orderItem.getTotalPrice(),orderItem.getOrderStatus().getId()+1);
+		if (!result){
+			req.setAttribute("failMsg","订单查询出错");
+			RequestDispatcher dispatcher = req.getRequestDispatcher("/order");
 			dispatcher.forward(req, resp);
 			return;
 		}
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/web/admin/goods.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/order");
 		dispatcher.forward(req, resp);
 	}
 

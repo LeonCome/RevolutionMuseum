@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!doctype html>
 <html lang="zh-CN">
 <%@include file="head.jsp" %>
@@ -16,6 +17,8 @@
         <table class="table table-bordered">
             <thead>
             <tr>
+                <th>用户ID</th>
+                <th>用户名</th>
                 <th>订单状态</th>
                 <th>订单总价</th>
                 <th>商品数量</th>
@@ -25,8 +28,9 @@
             </thead>
             <tbody>
             <c:forEach var="orderItem" items="${requestScope.orderItems}">
-
                 <tr data-order-item-id="${orderItem.id}" data-order-itme-total-price="${orderItem.totalPrice}">
+                    <td>${orderItem.user.id}</td>
+                    <td>${orderItem.user.username}</td>
                         <%--订单状态--%>
                     <td>${orderItem.orderStatus.orderStatus}</td>
                         <%--订单总价--%>
@@ -41,7 +45,12 @@
                         <%--商品名称--%>
                     <td>${orderItem.goods.name}</td>
                     <td class="operation-cell">
-                            <%--                    <button class="btn btn-danger" onclick="removeOrderItem(${orderItem.id})">删除</button>--%>
+                        <c:if test="${orderItem.orderStatus.id != null && orderItem.orderStatus.id == 1}">
+                            <button class="btn btn-danger" onclick="deliver(${orderItem.id})">发货</button>
+                        </c:if>
+                        <c:if test="${orderItem.orderStatus.id != null && orderItem.orderStatus.id == 3}">
+                            <button class="btn btn-default" onclick="accomplish(${orderItem.id})">完成</button>
+                        </c:if>
                     </td>
                 </tr>
 

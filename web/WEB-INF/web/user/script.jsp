@@ -124,9 +124,6 @@
                 url: "/${HOST_APP_PATH}/cart/add_order", // 结算购物车的 URL
                 contentType: "application/json", // 数据格式为 JSON
                 data: JSON.stringify(cartItems), // 转换为 JSON 字符串
-                success: function (response) {
-                    console.log("结算成功，跳转到订单页面！");
-                },
                 error: function () {
                     alert("网络错误，请稍后再试！");
                 }
@@ -134,6 +131,19 @@
         }
     }
 
+    function signFor(orderId) {
+        if (confirm("确定签收该订单吗？")) {
+            // 发起 AJAX 请求更新订单状态为已签收
+            $.ajax({
+                type: "POST",
+                url: "/${HOST_APP_PATH}/order/update", // 签收的 URL
+                data: {"orderId": orderId},
+                error: function () {
+                    alert("网络错误，请稍后重试！");
+                }
+            });
+        }
+    }
 
     function removeOrderItem(itemId) {
         if (confirm("确定要删除该商品吗？")) {

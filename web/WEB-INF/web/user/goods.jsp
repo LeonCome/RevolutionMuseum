@@ -8,42 +8,41 @@
 <jsp:include page="nav.jsp">
     <jsp:param name="activeNum" value="${activeNum}"/>
 </jsp:include>
-<!-- Begin page content -->
-<!-- right block Start  -->
-
-<div id="product-category" class="container text" style="margin-top: 60px; text-align: center;">
+<!-- 商品展示区域 -->
+<div id="product-category" class="container" style="margin-top: 60px;">
     <div class="row">
         <c:forEach items="${goods}" var="g">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-bottom: 20px;">
-                <div class="item" style="border: 1px solid #ddd; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+                <div class="item shadow-sm rounded overflow-hidden bg-white">
                     <div class="product-block">
-                        <div class="image" style="padding: 10px;">
+                        <!-- 商品图片 -->
+                        <div class="image">
                             <img
-                                    class="img-responsive" style="width: 100%; height: auto; border-radius: 10px;"
+                                    class="img-fluid rounded-top"
                                     title="${g.name}" alt="${g.name}"
-                                    src="${pageContext.request.contextPath}/static/img/goods/images.jpg">
+                                    src="${pageContext.request.contextPath}/static/img/goods/images.jpg"
+                                    style="width: 100%; height: auto;">
                         </div>
-                        <div class="product-details" style="padding: 15px; text-align: left;">
-                            <h4 style="font-size: 18px; color: #333; font-weight: bold; margin: 0;">${g.name}</h4>
-                            <div class="price" style="font-size: 16px; color: #e63946; margin: 10px 0;"><span class="price-new">￥${g.price}</span></div>
-                            <div class="product-hov" style="text-align: center;">
-                                <ul style="display: flex; justify-content: space-between; padding: 0; list-style: none; margin: 0;">
-                                    <li id="addtocart" class="addtocart" style="flex: 1; margin: 0 5px;">
-                                        <a href="${pageContext.request.contextPath}/goods/add_cart?id=${g.id}"
-                                           style="display: block; padding: 10px; background-color: #007bff; color: #fff; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
-                                            加入购物车
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="review" style="margin-top: 10px;">
-                                    <span class="rate">
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star"></i>
-                                    </span>
-                                </div>
+                        <!-- 商品详情 -->
+                        <div class="product-details p-3 text-left">
+                            <h4 class="product-title text-dark font-weight-bold mb-2">${g.name}</h4>
+                            <div class="price text-danger font-weight-bold mb-2">￥${g.price}</div>
+                            <!-- 操作按钮 -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="${pageContext.request.contextPath}/goods/add_cart?id=${g.id}"
+                                   class="btn btn-primary btn-block text-white">
+                                    加入购物车
+                                </a>
+                            </div>
+                            <!-- 评分 -->
+                            <div class="review mt-3 text-center">
+                                <span class="rate text-warning">
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star rated"></i>
+                                    <i class="fa fa-star"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -52,10 +51,62 @@
         </c:forEach>
     </div>
 </div>
-
-
 <%@include file="footer.jsp" %>
 <!-- Bootstrap core JavaScript -->
 <%@include file="script.jsp" %>
 </body>
 </html>
+
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+
+    .item {
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    .image img {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .rate .fa-star {
+        color: #ffd700;
+        font-size: 16px;
+    }
+
+    .rate .fa-star.rated {
+        color: #ffb400;
+    }
+
+    .btn-primary {
+        background-color: #007aff;
+        border-color: #007aff;
+        border-radius: 5px;
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    #product-category {
+        padding-top: 20px;
+    }
+</style>

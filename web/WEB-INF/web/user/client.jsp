@@ -82,5 +82,87 @@
 <%@include file="footer.jsp" %>
 <!-- Bootstrap core JavaScript -->
 <%@include file="script.jsp" %>
+<style>
+    /* 全局字体与背景优化 */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+
+
+    /* 轮播图样式 */
+    .carousel {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-inner img {
+        border-radius: 10px;
+        height: auto;
+        max-height: 400px; /* 保证图片不会超高 */
+        object-fit: cover;
+    }
+
+    .carousel-control {
+        color: #333 !important;
+    }
+
+    /* 公告与进馆须知样式 */
+    .panel {
+        border-radius: 10px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        overflow: hidden;
+    }
+
+    .panel-heading {
+        background-color: #f7f7f7;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .panel-body {
+        padding: 20px;
+        line-height: 1.6;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .panel-body ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .panel-body ul li {
+        margin-bottom: 10px;
+    }
+
+    .panel-body ul li a {
+        color: #007aff;
+        text-decoration: none;
+    }
+
+    .panel-body ul li a:hover {
+        text-decoration: underline;
+    }
+
+    /* 公告日期颜色 */
+    .text-muted {
+        color: #999 !important;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+
+    /* 左右列间距 */
+    .row > [class^="col-"] {
+        margin-bottom: 20px;
+    }
+</style>
+
 </body>
 </html>
