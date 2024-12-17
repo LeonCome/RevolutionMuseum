@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Order {
     private Integer id;
-    private Integer status = 0;         // 1未发货，2已发货，3已签收，4完成
+    private Integer status = 1;         // 1未发货，2已发货，3已签收，4完成
     private Double total;
     private Integer amount;
     private Date createTime;

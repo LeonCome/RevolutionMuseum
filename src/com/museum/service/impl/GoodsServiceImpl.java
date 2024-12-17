@@ -7,7 +7,7 @@ import com.museum.service.GoodsService;
 
 import java.util.List;
 
-public class GoodsServletImpl implements GoodsService {
+public class GoodsServiceImpl implements GoodsService {
 
 	@Override
 	public List<Goods> queryAllGoods() {

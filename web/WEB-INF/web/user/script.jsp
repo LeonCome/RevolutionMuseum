@@ -90,6 +90,24 @@
         $("#totalPrice").text(total.toFixed(2)); // 更新页面中的总金额
     }
 
+    function removeOrderItem(orderItemId){
+        if (confirm("确定要删除该商品吗？")) {
+            const row = $("tr[data-orderi-id='" + orderItemId + "']");
+            row.remove();  // 删除该行
+            calculateTotalPrice();  // 更新总金额
+
+            // 发起AJAX请求删除购物车商品
+            $.ajax({
+                type: "POST",
+                url: "/${HOST_APP_PATH}/order/remove_order_item", // 删除购物车商品的URL
+                data: { "orderItemId": orderItemId },
+                success: function(response) {
+                    // 成功后，页面可以根据需要做进一步处理
+
+                }
+            });
+    }
+
     // 页面加载时计算初始总金额
     $(document).ready(function() {
         calculateTotalPrice();

@@ -2,7 +2,7 @@ package com.museum.servlet;
 
 import com.museum.bean.Goods;
 import com.museum.service.GoodsService;
-import com.museum.service.impl.GoodsServletImpl;
+import com.museum.service.impl.GoodsServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,7 +20,7 @@ public class UserGoodsServlet extends HttpServlet {
 		System.out.println("===================UserGoodsServlet====================");
 		req.setAttribute("activeNum",2);
 
-		GoodsService goodsService = new GoodsServletImpl();
+		GoodsService goodsService = new GoodsServiceImpl();
 		List<Goods> goodsList =  goodsService.queryAllGoods();
 		req.setAttribute("goods",goodsList);
 
