@@ -4,6 +4,8 @@ import com.museum.bean.OrderItem;
 import com.museum.bean.Goods;
 import com.museum.bean.Order;
 import com.museum.dao.BaseDao;
+import com.museum.dao.GoodsDao;
+import com.museum.dao.OrderDao;
 import com.museum.dao.OrderItemDao;
 
 import java.sql.ResultSet;
@@ -41,14 +43,12 @@ public class OrderItemDaoImpl extends BaseDao implements OrderItemDao {
 		orderItem.setAmount(rs.getInt("amount"));
 
 		// 创建关联的 Goods 对象
-		Goods goods = new Goods();
-		goods.setId(rs.getInt("goods_id"));
-		orderItem.setGoods(goods);
+		GoodsDao goodsDao =new GoodsDaoImpl();
+		orderItem.setGoods(goodsDao.findById(rs.getInt("goods_id")));
 
 		// 创建关联的 Order 对象
-		Order order = new Order();
-		order.setId(rs.getInt("order_id"));
-		orderItem.setOrder(order);
+		OrderDao orderDao =new OrderDaoImpl();
+		orderItem.setOrder(orderDao.findById(rs.getInt("order_id")));
 
 		return orderItem;
 	}

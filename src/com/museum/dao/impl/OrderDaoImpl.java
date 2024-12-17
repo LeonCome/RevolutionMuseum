@@ -1,8 +1,13 @@
 package com.museum.dao.impl;
 
 import com.museum.bean.Order;
+import com.museum.bean.OrderItem;
 import com.museum.dao.BaseDao;
 import com.museum.dao.OrderDao;
+import com.museum.dao.OrderItemDao;
+import com.museum.dao.UserDao;
+import com.museum.service.UserService;
+import com.museum.service.impl.UserServiceImpl;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -63,6 +68,12 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		order.setAmount(rs.getInt("amount"));
 		order.setCreateTime(rs.getTimestamp("create_time"));
 		// 设置其他属性（如关联用户、订单项）时需根据业务逻辑查询其他表
+		UserDao userDao = new UserDaoImpl();
+		order.setUser(userDao.findByUserId(rs.getInt("user_id")));
+
+		OrderItemDao orderItemDao = new OrderItemDaoImpl();
+		order.setOrderItems(orderItemDao.findByOrderId(rs.getInt("id")));
+
 		return order;
 	}
 
