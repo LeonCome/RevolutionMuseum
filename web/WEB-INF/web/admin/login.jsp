@@ -22,14 +22,14 @@
                     <div class="input-group">
                         <span class="input-group-addon">用户名</span>
                         <input type="text" class="form-control" id="adminName" name="adminName" placeholder="请输入用户名"
-                               value="<c:out value='${adminName}' default=''/>">
+                               value="<c:out value='${cookie.adminName.value}' default=''/>">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">密　码</span>
                         <input type="password" class="form-control" id="adminPassword" name="adminPassword" placeholder="请输入密码"
-                               value="<c:out value='${adminPassword}' default=''/>">
+                               value="<c:out value='${cookie.adminPassword.value}' default=''/>">
                     </div>
                 </div>
                 <div class="form-group">

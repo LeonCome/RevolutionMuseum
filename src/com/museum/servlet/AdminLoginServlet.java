@@ -25,12 +25,12 @@ public class AdminLoginServlet extends HttpServlet {
 		User user = userService.loginUser(adminName, adminPassword);
 
 		//用户账号存在且可用
-		if (user != null && user.getIsValidate()) {
+		if (user != null && user.getIsValidate()&&user.getIsAdmin()) {
 			HttpSession session = req.getSession();
 			session.setAttribute("loggedInAdmin", user);
 			session.setAttribute("adminId",user.getId());
 
-			if ("on".equals(rememberMeAdmin)) {
+			if ("1".equals(rememberMeAdmin)) {
 				setRememberMeCookiesAdmin(resp, adminName, adminPassword, 7 * 24 * 60 * 60); // 7天有效
 			} else {
 				setRememberMeCookiesAdmin(resp, "", "", 0); // 删除 Cookie
