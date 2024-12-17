@@ -1,13 +1,19 @@
 package com.museum.bean;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.museum.util.GoodsDeserializer;
+import com.museum.util.UserDeserializer;
+
 /**
  * 购物车的商品项
  */
 public class CartItem {
     private Integer id;         //商品id
+    @JsonDeserialize(using = GoodsDeserializer.class)
     private Goods goods;
     private Integer count;      //商品数量
     private Double totalPrice;   //商品总价
+    @JsonDeserialize(using = UserDeserializer.class)
     private User user;
 
     public CartItem() {

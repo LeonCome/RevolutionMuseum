@@ -61,7 +61,7 @@ public class CartItemServiceImpl implements CartItemService {
 		Double totalPrice = new GoodsDaoImpl().findById(goodsId).getPrice();
 		User user = new UserDaoImpl().findByUserId(userId);
 		
-		CartItem cartItem = findByUserIdAndGoodsId(goodsId , userId);
+		CartItem cartItem = findByUserIdAndGoodsId(userId,goodsId );
 		if(cartItem==null){
 			return cartItemDao.saveCartItem(new CartItem(null, goods, 1, totalPrice,user))>0;
 		}

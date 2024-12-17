@@ -53,7 +53,7 @@ public class UserCartAddToOrderServlet extends HttpServlet {
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<CartItem> cartItemList;
 		try {
-			cartItemList = objectMapper.readValue(cartDataJson, new TypeReference<List<CartItem>>() {});
+			cartItemList = objectMapper.readValue(cartDataJson, new TypeReference<>() {});
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "解析购物车数据失败：" + e.getMessage());

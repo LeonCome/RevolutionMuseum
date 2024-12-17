@@ -1,7 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- 引入fmt标签库 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!-- 引入fmt标签库 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <% pageContext.setAttribute("APP_PATH", request.getContextPath()); %>
+
 
 <!doctype html>
 <html lang="zh-CN">
@@ -26,19 +30,30 @@
             </thead>
             <tbody>
             <c:forEach var="item" items="${requestScope.cartItems}">
-                <tr data-item-id="${item.id}" data-item-price="${item.goods.price}" data-goods = "${item.goods}" data-count="${item.count}" data-total-price="${item.totalPrice}" data-user="${item.user}">
+                <tr data-item-id="${item.id}"
+                    data-item-price="${item.goods.price}"
+                    data-count="${item.count}"
+                    data-total-price="${item.totalPrice}"
+                    data-goods='${fn:escapeXml(item.goods)}'
+                    data-user='${fn:escapeXml(item.user)}'>
+
                     <td><img src="${item.goods.image}" alt="${item.goods.name}" class="img-thumbnail" width="100"></td>
                     <td>${item.goods.name}</td>
                     <td class="item-price">${item.goods.price}</td>
                     <td>
-                        <input type="number" class="form-control item-count" value="${item.count}" min="1" max="99" id="item_${item.id}" onchange="updateItem(${item.id})">
+                        <input type="number" class="form-control item-count" value="${item.count}" min="1" max="99"
+                               id="item_${item.id}" onchange="updateItem(${item.id})">
                     </td>
                     <td class="item-total-price">
-                        <fmt:formatNumber value="${item.totalPrice}" maxFractionDigits="2" minFractionDigits="2" /> <!-- 格式化为2位小数 -->
+                        <fmt:formatNumber value="${item.totalPrice}" maxFractionDigits="2" minFractionDigits="2"/>
+                        <!-- 格式化为2位小数 -->
                     </td>
                     <td class="operation-cell">
                         <button class="btn btn-danger" onclick="removeItem(${item.id})">删除</button>
-                        <button class="btn btn-primary confirm-btn" style="display: none; position: absolute; margin-left: 50px" onclick="confirmUpdate(${item.id})">确定</button> <!-- 添加“确定”按钮，初始隐藏 -->
+                        <button class="btn btn-primary confirm-btn"
+                                style="display: none; position: absolute; margin-left: 50px"
+                                onclick="confirmUpdate(${item.id})">确定
+                        </button> <!-- 添加“确定”按钮，初始隐藏 -->
                     </td>
                 </tr>
             </c:forEach>

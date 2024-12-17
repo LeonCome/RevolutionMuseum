@@ -89,10 +89,18 @@
             $("tbody tr").each(function () {
                 const row = $(this);
                 const id = row.data("item-id"); // 购物车项 ID
-                const goods = row.data("goods-id"); // 商品类
+                const goods = row.data("goods");
+                // const goods = JSON.parse(goodsData);
                 const count = row.find(".item-count").val(); // 商品数量
-                const user = row.data("user"); // 用户类
+                const user = row.data("user");
+                //const user = JSON.parse(user); // 用户信息应该是对象
                 const totalPrice = row.data("total-price"); // 商品总价
+
+                console.log("id"+id)
+                console.log("count"+count)
+                console.log("totalPrice"+totalPrice)
+                console.log("user"+user)
+                console.log("goods"+goods)
 
                 if (id && goods && count && user && totalPrice) {
                     cartItems.push({
@@ -103,7 +111,6 @@
                         totalPrice: totalPrice // 商品总价
                     });
                 }
-                console.log(cartItems);
             });
 
             if (cartItems.length === 0) {
@@ -120,6 +127,7 @@
                 success: function (response) {
                     if (response.success) {
                         console.log("结算成功，跳转到订单页面！");
+                        window.location.href = "/order"; // 跳转到订单页面
                     } else {
                         alert("结算失败：" + response.message);
                     }
