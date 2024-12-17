@@ -8,7 +8,6 @@
 <!-- Begin Navbar -->
 <jsp:include page="nav.jsp"/>
 <!-- End Navbar -->
-
 <!-- Begin page content -->
 <div class="container">
     <div class="page-header text-center">

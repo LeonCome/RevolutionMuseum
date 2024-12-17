@@ -21,14 +21,14 @@ public class AdminLoginServlet extends HttpServlet {
 		String adminPassword = req.getParameter("adminPassword");
 		String rememberMeAdmin = req.getParameter("rememberMeAdmin");
 
-		UserService userService = new UserServiceImpl( new UserDaoImpl());
+		UserService userService = new UserServiceImpl(new UserDaoImpl());
 		User user = userService.loginUser(adminName, adminPassword);
 
 		//用户账号存在且可用
-		if (user != null && user.getIsValidate()&&user.getIsAdmin()) {
+		if (user != null && user.getIsValidate() && user.getIsAdmin()) {
 			HttpSession session = req.getSession();
 			session.setAttribute("loggedInAdmin", user);
-			session.setAttribute("adminId",user.getId());
+			session.setAttribute("adminId", user.getId());
 
 			if ("1".equals(rememberMeAdmin)) {
 				setRememberMeCookiesAdmin(resp, adminName, adminPassword, 7 * 24 * 60 * 60); // 7天有效
@@ -45,7 +45,7 @@ public class AdminLoginServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req,resp);
+		doGet(req, resp);
 	}
 
 	private void setRememberMeCookiesAdmin(HttpServletResponse resp, String adminName, String adminPassword, int maxAge) {
