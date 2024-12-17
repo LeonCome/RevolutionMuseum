@@ -1,7 +1,5 @@
 package com.museum.bean;
 
-import java.util.Date;
-
 /**
  * Goods - 商品实体类
  */

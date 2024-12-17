@@ -11,7 +11,7 @@
 <jsp:include page="nav.jsp"/>
 <div class="container mt-5">
     <h2>订单</h2>
-    <c:if test="${not empty requestScope.orders}">
+    <c:if test="${not empty requestScope.orderItems}">
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -23,33 +23,32 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="order" items="${requestScope.orders}">
-                <c:forEach var="orderItem" items="${order.orderItems}">
+                <c:forEach var="orderItem" items="${requestScope.orderItems}">
 
-<%--                    <tr data-orderi-id="${orderItem.id}" data-orderi-price="${orderItem.total}">--%>
-<%--                            &lt;%&ndash;订单状态&ndash;%&gt;--%>
-<%--                        <td>${order.status}</td>--%>
-<%--                            &lt;%&ndash;订单总价&ndash;%&gt;--%>
-<%--                        <td>--%>
-<%--                            <!-- 格式化为2位小数 -->--%>
-<%--                            <fmt:formatNumber value="${orderItem.goods.price * orderItem.amount}" maxFractionDigits="2"--%>
-<%--                                              minFractionDigits="2"/>--%>
+                    <tr data-order-item-id="${orderItem.id}" data-order-itme-total-price="${orderItem.totalPrice}">
+                            <%--订单状态--%>
+                        <td>${orderItem.orderStatus.orderStatus}</td>
+                            <%--订单总价--%>
+                        <td>
+                            <!-- 格式化为2位小数 -->
+                            <fmt:formatNumber value="${orderItem.totalPrice}" maxFractionDigits="2"
+                                              minFractionDigits="2"/>
 
-<%--                        </td>--%>
-<%--                            &lt;%&ndash;商品数量&ndash;%&gt;--%>
-<%--                        <td>${orderItem.amount}</td>--%>
-<%--                            &lt;%&ndash;商品名称&ndash;%&gt;--%>
-<%--                        <td>${orderItem.goods.name}</td>--%>
-<%--                        <td class="operation-cell">--%>
-<%--                            <button class="btn btn-danger" onclick="removeOrderItem(${orderItem.id})">删除</button>--%>
-<%--                        </td>--%>
-<%--                    </tr>--%>
+                        </td>
+                            <%--商品数量--%>
+                        <td>${orderItem.count}</td>
+                            <%--商品名称--%>
+                        <td>${orderItem.goods.name}</td>
+                        <td class="operation-cell">
+<%--                    <button class="btn btn-danger" onclick="removeOrderItem(${orderItem.id})">删除</button>--%>
+                        </td>
+                    </tr>
+
                 </c:forEach>
-            </c:forEach>
             </tbody>
         </table>
     </c:if>
-    <c:if test="${empty requestScope.orders}">
+    <c:if test="${empty requestScope.orderItems}">
         <p>您的订单是空的。</p>
     </c:if>
 </div>

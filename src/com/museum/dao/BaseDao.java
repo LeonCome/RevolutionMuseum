@@ -22,6 +22,7 @@ public abstract class BaseDao {
 		try {
 			conn = DbUtil.getConnection();
 			ps = conn.prepareStatement(sql);
+			System.out.println("Executing update: " + sql + " with parameters: " + Arrays.toString(args));
 			for (int i = 0; i < args.length; i++) {
 				ps.setObject(i + 1, args[i]);
 			}

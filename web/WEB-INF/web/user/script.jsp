@@ -10,7 +10,7 @@
     String serverName = request.getServerName(); // 域名
     int serverPort = request.getServerPort(); // 端口号
     String contextPath = request.getContextPath(); // 项目上下文路径
-    String appPath =  "/"+serverName + (serverPort != 80 && serverPort != 443 ? ":" + serverPort : "") + contextPath;
+    String appPath = "/" + serverName + (serverPort != 80 && serverPort != 443 ? ":" + serverPort : "") + contextPath;
     pageContext.setAttribute("HOST_APP_PATH", appPath);
 %>
 
@@ -48,7 +48,7 @@
                 "itemId": itemId,
                 "count": newCount
             },
-            success: function(response) {
+            success: function (response) {
                 // 成功后，隐藏“确定”按钮
                 confirmButton.hide();
 
@@ -72,10 +72,90 @@
             $.ajax({
                 type: "POST",
                 url: "/${HOST_APP_PATH}/cart/remove_cart_item", // 删除购物车商品的URL
-                data: { "itemId": itemId },
-                success: function(response) {
+                data: {"itemId": itemId},
+                success: function (response) {
                     // 成功后，页面可以根据需要做进一步处理
+                }
+            });
+        }
+    }
 
+
+    // 结算购物车
+    function settle() {
+        if (confirm("确定要结算购物车吗？")) {
+            // 构建购物车数据
+            const cartItems = [];
+            $("tbody tr").each(function () {
+                const row = $(this);
+                const id = row.data("item-id"); // 购物车项 ID
+                const goods = row.data("goods-id"); // 商品类
+                const count = row.find(".item-count").val(); // 商品数量
+                const user = row.data("user"); // 用户类
+                const totalPrice = row.data("total-price"); // 商品总价
+
+                if (id && goods && count && user && totalPrice) {
+                    cartItems.push({
+                        id: id,           // 购物车项 ID
+                        goods: goods,     // 商品信息
+                        count: count,     // 商品数量
+                        user: user,       // 用户信息
+                        totalPrice: totalPrice // 商品总价
+                    });
+                }
+                console.log(cartItems);
+            });
+
+            if (cartItems.length === 0) {
+                alert("购物车为空，无法结算！");
+                return;
+            }
+
+            // 发起 AJAX 请求提交结算信息
+            $.ajax({
+                type: "POST",
+                url: "/${HOST_APP_PATH}/cart/add_order", // 结算购物车的 URL
+                contentType: "application/json", // 数据格式为 JSON
+                data: JSON.stringify(cartItems), // 转换为 JSON 字符串
+                success: function (response) {
+                    if (response.success) {
+                        console.log("结算成功，跳转到订单页面！");
+                    } else {
+                        alert("结算失败：" + response.message);
+                    }
+                },
+                error: function () {
+                    alert("网络错误，请稍后再试！");
+                }
+            });
+        }
+    }
+
+
+    function removeOrderItem(itemId) {
+        if (confirm("确定要删除该商品吗？")) {
+            const row = $("tr[data-item-id='" + itemId + "']");
+            if (row.length === 0) {
+                alert("无法找到对应的商品行，请刷新页面重试！");
+                return;
+            }
+            row.remove(); // 删除该行
+            calculateTotalPrice(); // 更新总金额
+
+            // 发起 AJAX 请求删除购物车商品
+            $.ajax({
+                type: "POST",
+                url: request.getContextPath() + "/order/remove_cart_item", // 删除商品的 URL
+                data: {"itemId": itemId},
+                success: function (response) {
+                    if (response.success) {
+                        console.log("商品删除成功！");
+                    } else {
+                        alert("删除失败：" + response.message);
+                    }
+                },
+                error: function () {
+                    alert("网络错误，请稍后重试！");
                 }
             });
         }
@@ -84,32 +164,14 @@
     // 计算并更新总金额
     function calculateTotalPrice() {
         let total = 0;
-        $(".item-total-price").each(function() {
+        $(".item-total-price").each(function () {
             total += parseFloat($(this).text());
         });
-        $("#totalPrice").text(total.toFixed(2)); // 更新页面中的总金额
-    }
-
-    function removeOrderItem(orderItemId){
-        if (confirm("确定要删除该商品吗？")) {
-            const row = $("tr[data-orderi-id='" + orderItemId + "']");
-            row.remove();  // 删除该行
-            calculateTotalPrice();  // 更新总金额
-
-            // 发起AJAX请求删除购物车商品
-            $.ajax({
-                type: "POST",
-                url: "/${HOST_APP_PATH}/order/remove_order_item", // 删除购物车商品的URL
-                data: { "orderItemId": orderItemId },
-                success: function(response) {
-                    // 成功后，页面可以根据需要做进一步处理
-
-                }
-            });
+        $("#total-price").text(total.toFixed(2)); // 更新页面中的总金额
     }
 
     // 页面加载时计算初始总金额
-    $(document).ready(function() {
+    $(document).ready(function () {
         calculateTotalPrice();
 
         // 检查 failMsg 是否存在

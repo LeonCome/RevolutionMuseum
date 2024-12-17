@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             <c:forEach var="item" items="${requestScope.cartItems}">
-                <tr data-item-id="${item.id}" data-item-price="${item.goods.price}">
+                <tr data-item-id="${item.id}" data-item-price="${item.goods.price}" data-goods = "${item.goods}" data-count="${item.count}" data-total-price="${item.totalPrice}" data-user="${item.user}">
                     <td><img src="${item.goods.image}" alt="${item.goods.name}" class="img-thumbnail" width="100"></td>
                     <td>${item.goods.name}</td>
                     <td class="item-price">${item.goods.price}</td>
@@ -45,11 +45,11 @@
             </tbody>
         </table>
         <div class="text-right">
-            <h4>总金额: <span id="totalPrice"></span></h4>
-            <button class="btn btn-success">结算</button>
+            <h4>总金额: <span id="total-price"></span></h4>
+            <button class="btn btn-success" onclick="settle()">结算</button>
         </div>
     </c:if>
-    <c:if test="${empty cartItems}">
+    <c:if test="${empty requestScope.cartItems}">
         <p>您的购物车是空的。</p>
     </c:if>
 </div>

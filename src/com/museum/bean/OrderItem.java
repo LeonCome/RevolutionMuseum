@@ -5,19 +5,11 @@ package com.museum.bean;
  */
 public class OrderItem {
     private Integer id;
-    private Integer amount;
-    private Goods goods;            //关联的商品对象
-    private Order order;            //关联的订单对象
-
-    @Override
-    public String toString() {
-        return "OrderItem{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", goods=" + goods +
-                ", order=" + order +
-                '}';
-    }
+    private User user;
+    private Goods goods;
+    private OrderStatus orderStatus;
+    private Integer count;
+    private Double totalPrice;
 
     public OrderItem() {
     }
@@ -26,11 +18,13 @@ public class OrderItem {
         this.id = id;
     }
 
-    public OrderItem(Integer id, Integer amount, Goods goods, Order order) {
+    public OrderItem(Integer id, User user, Goods goods, OrderStatus orderStatus, Integer count, Double totalPrice) {
         this.id = id;
-        this.amount = amount;
+        this.user = user;
         this.goods = goods;
-        this.order = order;
+        this.orderStatus = orderStatus;
+        this.count = count;
+        this.totalPrice = totalPrice;
     }
 
     public Integer getId() {
@@ -41,12 +35,12 @@ public class OrderItem {
         this.id = id;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public User getUser() {
+        return user;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Goods getGoods() {
@@ -57,11 +51,39 @@ public class OrderItem {
         this.goods = goods;
     }
 
-    public Order getOrder() {
-        return order;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", user=" + user +
+                ", goods=" + goods +
+                ", orderStatus=" + orderStatus +
+                ", count=" + count +
+                ", totalPrice=" + totalPrice +
+                '}';
     }
 }

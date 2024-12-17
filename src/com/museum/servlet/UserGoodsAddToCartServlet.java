@@ -1,14 +1,20 @@
 package com.museum.servlet;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.museum.bean.*;
 import com.museum.service.CartItemService;
+import com.museum.service.OrderItemService;
 import com.museum.service.impl.CartItemServiceImpl;
+import com.museum.service.impl.OrderItemServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "UserGoodsAddToCartServlet", urlPatterns = "/goods/add_cart")
 public class UserGoodsAddToCartServlet extends HttpServlet {
@@ -30,7 +36,7 @@ public class UserGoodsAddToCartServlet extends HttpServlet {
 		//获取服务类
 		CartItemService cartItemService = new CartItemServiceImpl();
 		//添加数据到购物车
-		boolean result = cartItemService.addCartItemCount( (Integer) req.getSession().getAttribute("userId"),goodsId);
+		boolean result = cartItemService.addCartItemCount( goodsId,(Integer) req.getSession().getAttribute("userId"));
 
 		if (!result){
 			req.setAttribute("SqlFailMsg","无法更新，请联系管理员!");

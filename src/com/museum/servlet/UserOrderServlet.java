@@ -1,10 +1,8 @@
 package com.museum.servlet;
 
-import com.museum.bean.Order;
-import com.museum.service.CartItemService;
-import com.museum.service.OrderService;
-import com.museum.service.impl.CartItemServiceImpl;
-import com.museum.service.impl.OrderServiceImpl;
+import com.museum.bean.OrderItem;
+import com.museum.service.OrderItemService;
+import com.museum.service.impl.OrderItemServiceImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,10 +24,10 @@ public class UserOrderServlet extends HttpServlet {
 		if (req.getSession().getAttribute("userId")!=null){
 			int userId= (int) req.getSession().getAttribute("userId");
 
-			OrderService orderService = new OrderServiceImpl();
-			List<Order> orders = orderService.findByUserId(userId);
-			req.setAttribute("orders",orders);
-			System.out.println("orders!!!"+orders);
+			OrderItemService orderService = new OrderItemServiceImpl();
+			List<OrderItem> orderItems = orderService.findByUserId(userId);
+			req.setAttribute("orderItems",orderItems);
+			System.out.println("orderItems:"+orderItems);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/web/user/order.jsp");
 			dispatcher.forward(req, resp);
 			return;

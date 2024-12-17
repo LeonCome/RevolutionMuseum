@@ -11,7 +11,7 @@
 
 <!-- Begin page content -->
 <div class="container mt-5">
-    <h2>纪念品购买管理</h2>
+    <h2>订单管理</h2>
     <c:if test="${not empty requestScope.cartItems}">
         <table class="table table-bordered">
             <thead>
