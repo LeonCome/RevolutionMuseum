@@ -42,6 +42,12 @@ public class OrderItemDaoImpl extends BaseDao implements OrderItemDao {
 	}
 
 	@Override
+	public int deleteOrderItem(int id) {
+		String sql = "DELETE FROM order_item WHERE id=?";
+		return update(sql,id);
+	}
+
+	@Override
 	public List<OrderItem> findByUserId(int userId) {
 		String sql = "SELECT * FROM order_item WHERE user_id = ?";
 		ResultSet rs = query(sql, userId);

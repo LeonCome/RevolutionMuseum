@@ -51,7 +51,7 @@
             success: function (response) {
                 // 成功后，隐藏“确定”按钮
                 confirmButton.hide();
-
+                window.location.href = "/${HOST_APP_PATH}/cart";
                 // 检查 loginFailMsg 是否存在
                 <c:if test="${!empty requestScope.SqlFailMsg}">
                 // 显示登录模态框
@@ -73,9 +73,9 @@
                 type: "POST",
                 url: "/${HOST_APP_PATH}/cart/remove_cart_item", // 删除购物车商品的URL
                 data: {"itemId": itemId},
-                success:function (){
-                    location.reload();
-                }
+                success: function () {
+                    window.location.href = "/${HOST_APP_PATH}/cart";
+                },
             });
         }
     }
@@ -124,8 +124,8 @@
                 url: "/${HOST_APP_PATH}/cart/add_order", // 结算购物车的 URL
                 contentType: "application/json", // 数据格式为 JSON
                 data: JSON.stringify(cartItems), // 转换为 JSON 字符串
-                success:function (){
-                    location.reload();
+                success: function () {
+                    window.location.href = "/${HOST_APP_PATH}/cart";
                 },
                 error: function () {
                     alert("网络错误，请稍后再试！");
@@ -141,8 +141,8 @@
                 type: "POST",
                 url: "/${HOST_APP_PATH}/order/update", // 签收的 URL
                 data: {"orderId": orderId},
-                success:function (){
-                    location.reload();
+                success: function () {
+                    window.location.href = "/${HOST_APP_PATH}/order";
                 },
                 error: function () {
                     alert("网络错误，请稍后重试！");
@@ -151,27 +151,15 @@
         }
     }
 
-    function removeOrderItem(itemId) {
-        if (confirm("确定要删除该商品吗？")) {
-            const row = $("tr[data-item-id='" + itemId + "']");
-            if (row.length === 0) {
-                alert("无法找到对应的商品行，请刷新页面重试！");
-                return;
-            }
-            row.remove(); // 删除该行
-            calculateTotalPrice(); // 更新总金额
-
-            // 发起 AJAX 请求删除购物车商品
+    function deleteOrder(orderId) {
+        if (confirm("确定删除该订单吗？")) {
+            // 发起 AJAX 请求删除订单
             $.ajax({
                 type: "POST",
-                url: request.getContextPath() + "/order/remove_cart_item", // 删除商品的 URL
-                data: {"itemId": itemId},
-                success: function (response) {
-                    if (response.success) {
-                        console.log("商品删除成功！");
-                    } else {
-                        alert("删除失败：" + response.message);
-                    }
+                url: "/${HOST_APP_PATH}/order/delete", // 删除订单的 URL
+                data: {"orderId": orderId},
+                success: function () {
+                    window.location.href = "/${HOST_APP_PATH}/order";
                 },
                 error: function () {
                     alert("网络错误，请稍后重试！");

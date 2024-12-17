@@ -23,6 +23,11 @@ public class OrderItemServiceImpl implements OrderItemService {
 	}
 
 	@Override
+	public boolean deleteOrderItem(int id) {
+		return new OrderItemDaoImpl().deleteOrderItem(id)>0;
+	}
+
+	@Override
 	public List<OrderItem> findByUserId(int userId) {
 		return new OrderItemDaoImpl().findByUserId(userId);
 	}

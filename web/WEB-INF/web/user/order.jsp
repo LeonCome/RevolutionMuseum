@@ -43,6 +43,9 @@
                         <c:if test="${orderItem.orderStatus.id != null && orderItem.orderStatus.id == 2}">
                             <button class="btn btn-default" onclick="signFor(${orderItem.id})">签收</button>
                         </c:if>
+                        <c:if test="${orderItem.orderStatus.id != null && orderItem.orderStatus.id == 4}">
+                            <button class="btn btn-danger" onclick="deleteOrder(${orderItem.id})">删除</button>
+                        </c:if>
                     </td>
                 </tr>
 
