@@ -33,7 +33,7 @@ CREATE TABLE `cart_item` (
   KEY `goods_id` (`goods_id`),
   CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,7 @@ CREATE TABLE `cart_item` (
 
 LOCK TABLES `cart_item` WRITE;
 /*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
+INSERT INTO `cart_item` VALUES (89,2,3,2,20.00),(90,2,7,3,36.00),(91,2,10,1,22.00);
 /*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +94,7 @@ CREATE TABLE `order_item` (
   CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`id`),
   CONSTRAINT `order_item_ibfk_3` FOREIGN KEY (`order_status_id`) REFERENCES `order_status` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +103,7 @@ CREATE TABLE `order_item` (
 
 LOCK TABLES `order_item` WRITE;
 /*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
-INSERT INTO `order_item` VALUES (24,2,2,3,1,10.00);
+INSERT INTO `order_item` VALUES (24,2,2,4,1,10.00),(25,2,1,3,5,50.00),(26,2,7,2,1,12.00),(27,2,10,2,5,110.00),(28,2,6,1,1,10.00),(29,2,3,1,3,30.00);
 /*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +151,7 @@ CREATE TABLE `user` (
   `is_validate` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_unique` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +160,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'testuser',NULL,'password','测试用户','test@example.com','123456789','测试地址',0,1),(2,'lht',NULL,'123456','林宏涛','1175779914@qq.com','13058696369','杭州职业技术学院',1,1),(3,'lht123',NULL,'123456','linhongtao1','1@qq.com','1231','1231',0,1),(4,'lht1234',NULL,'123456','linhongtao','1@qq.com','1231','1231',0,1),(5,'user111',NULL,'123456','linhongtao','1@qq.com','1231','1231',0,1),(6,'lht12345',NULL,'123456','linhongtao','1@qq.com','1231','1231',0,1);
+INSERT INTO `user` VALUES (1,'testuser',NULL,'password','测试用户','test@example.com','123456789','测试地址',0,1),(2,'lht',NULL,'123456','林宏涛','1175779914@qq.com','13058696369','杭州职业技术学院',1,1),(7,'user1',NULL,'123456','张三','zs@163.com','18888888888','杭州职业技术学院',0,0),(8,'admin',NULL,'123456','李四','power@gmail.com','16666666666','浙江大学',1,0),(10,'wangwu',NULL,'123456','王五','ww@123.com','17777777777','清华大学',1,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -172,4 +173,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-18  4:56:12
+-- Dump completed on 2024-12-18  5:10:08
