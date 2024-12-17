@@ -18,6 +18,7 @@
                 url: "/${HOST_APP_PATH}/admin/update_order", // 发货的 URL
                 data: {"orderId": orderId},
                 success: function () {
+                    location.reload();
                 },
                 error: function () {
                     alert("网络错误，请稍后重试！");
@@ -33,7 +34,9 @@
                 type: "POST",
                 url: "/${HOST_APP_PATH}/admin/update_order", // 完成订单的 URL
                 data: {"orderId": orderId},
-
+                success: function () {
+                    location.reload();
+                },
                 error: function () {
                     alert("网络错误，请稍后重试！");
                 }

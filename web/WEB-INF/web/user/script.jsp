@@ -73,8 +73,8 @@
                 type: "POST",
                 url: "/${HOST_APP_PATH}/cart/remove_cart_item", // 删除购物车商品的URL
                 data: {"itemId": itemId},
-                success: function (response) {
-                    // 成功后，页面可以根据需要做进一步处理
+                success:function (){
+                    location.reload();
                 }
             });
         }
@@ -124,6 +124,9 @@
                 url: "/${HOST_APP_PATH}/cart/add_order", // 结算购物车的 URL
                 contentType: "application/json", // 数据格式为 JSON
                 data: JSON.stringify(cartItems), // 转换为 JSON 字符串
+                success:function (){
+                    location.reload();
+                },
                 error: function () {
                     alert("网络错误，请稍后再试！");
                 }
@@ -138,6 +141,9 @@
                 type: "POST",
                 url: "/${HOST_APP_PATH}/order/update", // 签收的 URL
                 data: {"orderId": orderId},
+                success:function (){
+                    location.reload();
+                },
                 error: function () {
                     alert("网络错误，请稍后重试！");
                 }
