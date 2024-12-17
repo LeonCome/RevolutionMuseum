@@ -47,7 +47,7 @@ public class OrderItemDaoImpl extends BaseDao implements OrderItemDao {
 		ResultSet rs = query(sql, userId);
 		List<OrderItem> orderItemList = new ArrayList<>();
 		try {
-			if (rs.next()) {
+			while (rs.next()) {
 				orderItemList.add(mapOrderItem(rs));
 			}
 		} catch (Exception e) {

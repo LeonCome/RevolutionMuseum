@@ -17,7 +17,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "UserCartAddToOrderServlet", urlPatterns = "/cart/add_order")
 public class UserCartAddToOrderServlet extends HttpServlet {
@@ -75,10 +78,6 @@ public class UserCartAddToOrderServlet extends HttpServlet {
 			// 创建订单状态（默认 "未发货"）
 			OrderStatus orderStatus = new OrderStatus("未发货", 1);
 
-			System.out.println("商品 ID: " + goods.getId());
-			System.out.println("用户 ID: " + user.getId());
-			System.out.println("商品数量: " + count);
-			System.out.println("商品总价: " + totalPrice);
 
 			// 保存订单项到数据库
 			boolean result1 = orderItemService.saveOrderItem(new OrderItem(null, user, goods, orderStatus, count, totalPrice));
@@ -92,11 +91,9 @@ public class UserCartAddToOrderServlet extends HttpServlet {
 				return;
 			}
 		}
-
 		// 全部处理成功后，跳转到订单页面
 		req.getRequestDispatcher("/order").forward(req, resp);
 	}
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);

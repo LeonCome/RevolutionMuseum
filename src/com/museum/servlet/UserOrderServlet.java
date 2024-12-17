@@ -32,7 +32,7 @@ public class UserOrderServlet extends HttpServlet {
 			dispatcher.forward(req, resp);
 			return;
 		}
-
+	
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/web/user/order.jsp");
 		dispatcher.forward(req, resp);
 

@@ -96,11 +96,11 @@
                 //const user = JSON.parse(user); // 用户信息应该是对象
                 const totalPrice = row.data("total-price"); // 商品总价
 
-                console.log("id"+id)
-                console.log("count"+count)
-                console.log("totalPrice"+totalPrice)
-                console.log("user"+user)
-                console.log("goods"+goods)
+                console.log("id" + id)
+                console.log("count" + count)
+                console.log("totalPrice" + totalPrice)
+                console.log("user" + user)
+                console.log("goods" + goods)
 
                 if (id && goods && count && user && totalPrice) {
                     cartItems.push({
@@ -125,12 +125,7 @@
                 contentType: "application/json", // 数据格式为 JSON
                 data: JSON.stringify(cartItems), // 转换为 JSON 字符串
                 success: function (response) {
-                    if (response.success) {
-                        console.log("结算成功，跳转到订单页面！");
-                        window.location.href = "/order"; // 跳转到订单页面
-                    } else {
-                        alert("结算失败：" + response.message);
-                    }
+                    console.log("结算成功，跳转到订单页面！");
                 },
                 error: function () {
                     alert("网络错误，请稍后再试！");
