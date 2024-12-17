@@ -17,31 +17,31 @@
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
-            <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/user_login" method="post">
+            <form class="form-horizontal" action="${pageContext.request.contextPath}/admin/admin_login" method="post">
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">用户名</span>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名"
-                               value="<c:out value='${username}' default=''/>">
+                        <input type="text" class="form-control" id="adminName" name="adminName" placeholder="请输入用户名"
+                               value="<c:out value='${adminName}' default=''/>">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">密　码</span>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码"
-                               value="<c:out value='${password}' default=''/>">
+                        <input type="password" class="form-control" id="adminPassword" name="adminPassword" placeholder="请输入密码"
+                               value="<c:out value='${adminPassword}' default=''/>">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="checkbox text-right">
                         <label>
-                            <input type="checkbox" name="rememberMe" value="1">记住用户名和密码
+                            <input type="checkbox" name="rememberMeAdmin" value="1">记住用户名和密码
                         </label>
                     </div>
                 </div>
-                <c:if test="${!empty failMsg}">
+                <c:if test="${!empty AdminLoginFailMsg}">
                     <div id="alert_div" class="alert alert-danger" role="alert">
-                        <strong>错误!</strong> ${failMsg}
+                        <strong>错误!</strong> ${AdminLoginFailMsg}
                     </div>
                 </c:if>
                 <div class="form-group">

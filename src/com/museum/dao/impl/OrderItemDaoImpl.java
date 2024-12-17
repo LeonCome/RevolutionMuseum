@@ -47,8 +47,9 @@ public class OrderItemDaoImpl extends BaseDao implements OrderItemDao {
 		orderItem.setGoods(goodsDao.findById(rs.getInt("goods_id")));
 
 		// 创建关联的 Order 对象
-		OrderDao orderDao =new OrderDaoImpl();
-		orderItem.setOrder(orderDao.findById(rs.getInt("order_id")));
+		Order  order = new Order();
+		order.setId(rs.getInt("order_id"));
+		orderItem.setOrder(order);
 
 		return orderItem;
 	}

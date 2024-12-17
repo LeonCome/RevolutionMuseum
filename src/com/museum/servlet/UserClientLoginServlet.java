@@ -22,6 +22,7 @@ public class UserClientLoginServlet extends HttpServlet {
 		UserService userService = new UserServiceImpl( new UserDaoImpl());
 		User user = userService.loginUser(username, password);
 
+		//用户账号存在且可用
 		if (user != null && user.getIsValidate()) {
 			HttpSession session = req.getSession();
 			session.setAttribute("loggedInUser", user);
@@ -38,6 +39,12 @@ public class UserClientLoginServlet extends HttpServlet {
 			req.setAttribute("loginFailMsg", "用户名或密码错误，请重试！");
 			req.getRequestDispatcher("/client").forward(req, resp);
 		}
+
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req,resp);
 	}
 
 	private void setRememberMeCookies(HttpServletResponse resp, String username, String password, int maxAge) {
