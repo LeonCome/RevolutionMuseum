@@ -33,7 +33,7 @@ CREATE TABLE `cart_item` (
   KEY `goods_id` (`goods_id`),
   CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,6 @@ CREATE TABLE `cart_item` (
 
 LOCK TABLES `cart_item` WRITE;
 /*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
-INSERT INTO `cart_item` VALUES (28,2,2,5,50.00),(37,2,1,4,40.00);
 /*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,35 +73,6 @@ INSERT INTO `goods` VALUES (1,'纪念币1',10.00,999,NULL),(2,'纪念币2',10.00
 UNLOCK TABLES;
 
 --
--- Table structure for table `order`
---
-
-DROP TABLE IF EXISTS `order`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `status` int DEFAULT '0',
-  `total` decimal(10,2) NOT NULL,
-  `amount` int NOT NULL,
-  `create_time` datetime NOT NULL,
-  `user_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `order`
---
-
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `order_item`
 --
 
@@ -111,15 +81,19 @@ DROP TABLE IF EXISTS `order_item`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_item` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `order_id` int DEFAULT NULL,
-  `goods_id` int DEFAULT NULL,
-  `amount` int NOT NULL,
+  `user_id` int NOT NULL,
+  `goods_id` int NOT NULL,
+  `order_status_id` int NOT NULL,
+  `count` int NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `order_id` (`order_id`),
+  KEY `user_id` (`user_id`),
   KEY `goods_id` (`goods_id`),
-  CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
-  CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  KEY `order_status_id` (`order_status_id`),
+  CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`id`),
+  CONSTRAINT `order_item_ibfk_3` FOREIGN KEY (`order_status_id`) REFERENCES `order_status` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,6 +102,7 @@ CREATE TABLE `order_item` (
 
 LOCK TABLES `order_item` WRITE;
 /*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
+INSERT INTO `order_item` VALUES (24,2,2,3,1,10.00);
 /*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-16 23:50:05
+-- Dump completed on 2024-12-18  4:56:12
